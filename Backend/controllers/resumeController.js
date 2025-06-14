@@ -43,47 +43,64 @@ export const resumeAnalyzer = async (req, res) => {
       // console.log("Extracted Resume Text:", rawText.slice(0, 300)); // Preview for debug
 
 const prompt = `
-              You are an AI-powered resume analyzer. Compare the **resume** and **job description** provided below, and respond with a structured, professional analysis.
+You are an AI-powered resume analyzer. Compare the **resume** and **job description** provided below, and respond with a structured, professional analysis.
 
-              ✅ Use **Markdown formatting** and include **appropriate emojis** to enhance readability and engagement.
+✅ Use **Markdown formatting** and include **appropriate emojis** to enhance readability and structure.
 
-              🚫 Do NOT include any headings like "Resume Analysis: [Name] vs. [Job Title]".
+🚫 Do NOT include headings like "Resume Analysis: [Name] vs. [Job Title]".
 
-              Respond with the following structured sections:
+---
 
-              ---
+Respond with the following structured sections:
 
-              1. **🧠 Candidate Qualifications Summary**  
-                - Highlight technical strengths, academic background, and notable projects.  
-                - If applicable, mention soft skills such as teamwork 🤝, communication 🗣️, or independent initiative 💡 inferred from project work or experience.
+### 1. 🧠 Candidate Qualifications Summary  
+- Summarize the candidate’s **overall background**, **education**, and **key strengths** relevant to the job.  
+- Include any **notable experience**, **research**, **projects**, or **certifications**.  
+- Mention applicable **soft skills** like communication 🗣️, leadership 🤝, or problem-solving 💡.
 
-              2. **🛠️ Extracted Relevant Skills**  
-                - List the candidate’s skills grouped into the following categories:  
-                  - **Programming Languages** 💻  
-                  - **Frameworks / Libraries** 📦  
-                  - **Tools / Platforms** 🧰  
-                  - **Concepts / Methodologies** 📚
+---
 
-              3. **🚫 Missing or Weak Areas**  
-                - Point out specific skills, tools, or experience gaps based on the job description.  
-                - Clearly mention what is missing or underdeveloped.
+### 2. 🎯 Extracted Relevant Competencies  
+Group the candidate’s **skills and qualifications** into appropriate categories, based on the job domain. For example:
 
-              4. **📈 Suggestions for Improvement**  
-                - Provide **3 to 5 specific, actionable** suggestions to improve the resume or better align with the job role.  
-                - Keep suggestions relevant and realistic for the candidate's profile.
+- **Technical or Subject Knowledge** 📘  
+- **Tools / Equipment / Platforms** 🧰  
+- **Research / Analysis / Reporting Skills** 🧪  
+- **Communication / Collaboration** 💬  
+- **Other Core Competencies** 🌟
 
-              5. **📊 Resume Match Rating**  
-                - Provide a match percentage (e.g., \`78% match\`) indicating how well the resume aligns with the job description.  
-                - Briefly justify the rating by highlighting key strengths and critical weaknesses.
+*(Only include categories that are applicable.)*
 
-                ⚠ dont use such filler words or phrases "Let me know if you need further refinements! 🎯"
-              ---
-              Be concise, helpful, and maintain a positive tone throughout the analysis.
+---
 
-              Resume: ${rawText}
+### 3. ⚠️ Gaps or Underrepresented Areas  
+- Clearly point out **missing or underdeveloped skills** or experience based on the job description.  
+- Focus on **knowledge**, **tools**, **techniques**, or **experience** the candidate lacks.  
+- Be specific, concise, and avoid assumptions.
 
-              Job Description: ${jobDescription}
-              `;
+---
+
+### 4. 📈 Suggestions for Improvement  
+- Provide **3 to 5 actionable suggestions** to improve the resume or align it better with the role.  
+- Include areas like content, formatting, visibility of achievements, or skill clarity.  
+- Keep them **constructive**, **relevant**, and **tailored to the job domain**.
+
+---
+
+### 5. 📊 Resume Match Rating  
+- Assign a **match percentage** (e.g., \`82% match\`) based on how well the resume fits the job.  
+- Briefly explain the score using **evidence from qualifications, experience, and gaps**.
+
+---
+
+Be objective, professional, and avoid filler phrases like “Let me know if you need refinements.” Focus only on the analysis.
+
+---
+
+Resume: ${rawText}
+
+Job Description: ${jobDescription}
+`;
 
 
       try {
