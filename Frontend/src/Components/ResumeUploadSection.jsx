@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { resumeAnalyzes } from "../apiCall";
 import Loader from "./Loader";
 import ReactMarkdown from "react-markdown";
-// import jsPDF from "jspdf";
-// import "jspdf-autotable";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+// import { formatResumeMarkdown } from "../formatMarkdown";
 
 const ResumeUploadSection = () => {
   const [formData, setFormData] = useState({
@@ -11,11 +12,11 @@ const ResumeUploadSection = () => {
     jobDescription: "",
   });
 
-//   const downloadTextAsPdf = (text, filename = "text.pdf") => {
-//     const doc = new jsPDF();
-//     doc.text(text, 10, 10);
-//     doc.save(filename);
-//   };
+  const downloadTextAsPdf = (text, filename = "Analyzed Resume.pdf") => {
+    const doc = new jsPDF();
+    doc.text(text, 10, 10);
+    doc.save(filename);
+  };
 
   const [resumeData, setResumeData] = useState("");
   const [isloading, setIsLoading] = useState(false);
@@ -41,7 +42,9 @@ const ResumeUploadSection = () => {
     const response = await resumeAnalyzes(formData);
     setIsLoading(false);
     if (response) {
+      // const formatedData = formatResumeMarkdown(response.result)
       setResumeData(response.result);
+      console.log(response.result)
     }
   };
 
@@ -49,13 +52,13 @@ const ResumeUploadSection = () => {
     setResumeData("");
   };
 
-  const handleDownload = () => {
-    const blob = new Blob([resumeData], { type: "text/markdown" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "resume-analysis.pdf";
-    link.click();
-  };
+  // const handleDownload = () => {
+  //   const blob = new Blob([resumeData], { type: "text/markdown" });
+  //   const link = document.createElement("a");
+  //   link.href = URL.createObjectURL(blob);
+  //   link.download = "resume-analysis.pdf";
+  //   link.click();
+  // };
 
   return (
     <>
@@ -119,7 +122,7 @@ const ResumeUploadSection = () => {
             </button>
             <button
               className="btn btn-secondary w-full sm:w-auto"
-              onClick={handleDownload}
+              onClick={downloadTextAsPdf(resumeData)}
             >
               Download Report
             </button>
