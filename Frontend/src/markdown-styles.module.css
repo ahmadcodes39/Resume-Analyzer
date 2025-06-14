@@ -1,0 +1,59 @@
+.reactMarkDown {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--fallback-bc, #e5e7eb); /* Tailwind base-content fallback */
+  line-height: 1.75;
+  background-color: transparent;
+}
+
+.reactMarkDown ul {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  list-style: disc outside none;
+}
+
+.reactMarkDown ul li {
+  margin-left: 2em;
+  display: list-item;
+  text-align: -webkit-match-parent;
+}
+
+.reactMarkDown p {
+  font-size: 14px;
+  font-weight: 400;
+  white-space: pre-wrap;
+}
+
+.reactMarkDown h1,
+.reactMarkDown h2,
+.reactMarkDown h3 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+  color: var(--fallback-primary, #60a5fa);
+}
+
+.reactMarkDown strong {
+  font-weight: 600;
+  color: #fff;
+}
+
+.reactMarkDown em {
+  font-style: italic;
+}
+
+.reactMarkDown code {
+  background-color: #1f2937;
+  color: #facc15;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.9em;
+}
+
+.reactMarkDown pre {
+  background-color: #1e1e1e;
+  padding: 1em;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin-bottom: 1.5em;
+}
